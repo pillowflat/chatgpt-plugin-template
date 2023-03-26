@@ -1,0 +1,26 @@
+@base_url = http://localhost:8000
+
+### OpenAI's request to get manifest.json
+# @name manifest
+GET {{base_url}}/.well-known/ai-plugin.json
+
+@openapi = {{manifest.response.body.$.api.url}}
+
+### OpenAI's request to get openapi spec
+GET {{openapi}}
+
+### Swagger docs
+GET {{base_url}}/docs
+
+### Example request
+POST {{base_url}}/query
+Content-Type: application/json
+
+{
+    "queries":  [
+        {"id": 1, "query": "Query 1"},
+        {"id": 2, "query": "Query 2"},
+        {"id": 3, "query": "Query 3"}
+    ]
+}
+
